@@ -110,24 +110,24 @@ def svg(i, title):
     t = "".join(f'<tspan x="60" dy="{0 if k == 0 else 62}">{html.escape(l)}</tspan>' for k, l in enumerate(lines[:4]))
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="{a}"/><stop offset="1" stop-color="{b}"/></linearGradient></defs><rect width="1200" height="675" fill="url(#g)"/><circle cx="1050" cy="120" r="220" fill="#fff" opacity=".1"/><text x="60" y="300" font-family="Arial,sans-serif" font-weight="800" font-size="54" fill="#fff">{t}</text></svg>'''
 
-os.makedirs("images", exist_ok=True)
-os.makedirs("blog", exist_ok=True)
+
+
 open("style.css", "w").write(CSS)
 
 cards = ""
 for i, (slug, title, desc, paras) in enumerate(POSTS, 1):
-    img = f"images/post-{i}.{EXT}"
+    img = f"post-{i}.{EXT}"
     if EXT == "svg": open(img, "w").write(svg(i - 1, title))
-    cards += f'<div class="card"><a href="/blog/{slug}.html"><img src="/{img}" alt="{html.escape(title)}" loading="lazy"></a><div><h2><a href="/blog/{slug}.html">{html.escape(title)}</a></h2><p>{html.escape(desc)}</p></div></div>'
-    others = "".join(f'<li><a href="/blog/{s}.html">{html.escape(t)}</a></li>' for j, (s, t, _, _) in enumerate(POSTS) if j != i - 1 and abs(j - (i - 1)) <= 2)
+    cards += f'<div class="card"><a href="/{slug}.html"><img src="/{img}" alt="{html.escape(title)}" loading="lazy"></a><div><h2><a href="/{slug}.html">{html.escape(title)}</a></h2><p>{html.escape(desc)}</p></div></div>'
+    others = "".join(f'<li><a href="/{s}.html">{html.escape(t)}</a></li>' for j, (s, t, _, _) in enumerate(POSTS) if j != i - 1 and abs(j - (i - 1)) <= 2)
     body = f'<main><article><p class="meta"><a href="/">Home</a> / Blog</p><h1>{html.escape(title)}</h1><img src="/{img}" alt="{html.escape(title)}">' + "".join(f"<p>{html.escape(p)}</p>" for p in paras) + f'<div class="more"><h2>Keep reading</h2><ul>{others}</ul></div></article></main>'
     ld = f'<script type="application/ld+json">{{"@context":"https://schema.org","@type":"BlogPosting","headline":"{title}","description":"{desc}","image":"{SITE}/{img}","author":{{"@type":"Person","name":"{NAME}"}}}}</script>'
-    open(f"blog/{slug}.html", "w").write(page(f"{title} | {NAME}", desc, f"blog/{slug}.html", body, img, ld))
+    open(f"{slug}.html", "w").write(page(f"{title} | {NAME}", desc, f"{slug}.html", body, img, ld))
 
 home = f'<main><section class="hero"><h1>{NAME}</h1><p>{TAG}. Ten guides on SEO, content and AI tools.</p></section><div class="grid">{cards}</div></main>'
-open("index.html", "w").write(page(f"{NAME} | {TAG}", f"{TAG}. Read 10 beginner friendly guides on SEO, content creation and AI tools.", "", home, f"images/post-1.{EXT}"))
+open("index.html", "w").write(page(f"{NAME} | {TAG}", f"{TAG}. Read 10 beginner friendly guides on SEO, content creation and AI tools.", "", home, f"post-1.{EXT}"))
 
-urls = [""] + [f"blog/{p[0]}.html" for p in POSTS]
+urls = [""] + [f"{p[0]}.html" for p in POSTS]
 open("sitemap.xml", "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "\n".join(f"<url><loc>{SITE}/{u}</loc></url>" for u in urls) + "\n</urlset>")
 open("robots.txt", "w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
 print("Built", len(POSTS), "posts")

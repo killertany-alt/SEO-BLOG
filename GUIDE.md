@@ -1,6 +1,6 @@
 # Vercel Hosting Guide: SEO Internal Project
 
-Site: 10-post blog with images. Already built in this folder (index.html, blog/, images/, sitemap.xml, robots.txt).
+Site: 10-post blog with images. Already built in this folder (flat structure: index.html, 10 post pages, 10 images, sitemap.xml, robots.txt, no subfolders).
 
 ## Step 1: Generate the code (done)
 If your task needs your own AI prompt, use this one in any AI:
@@ -8,7 +8,7 @@ If your task needs your own AI prompt, use this one in any AI:
 > Build a static blog website with at least 10 blog posts on SEO and digital marketing. Each post needs its own page, a featured image, a unique title and meta description. Add a homepage grid, dark theme, responsive layout, sitemap.xml and robots.txt. Output plain HTML, CSS and images, no frameworks.
 
 ## Step 2: Replace stock images with your own photos
-1. Put 10 photos in the `images/` folder named `post-1.jpg` ... `post-10.jpg`.
+1. Put 10 photos in the main folder (next to index.html) named `post-1.jpg` ... `post-10.jpg`.
 2. Run: `python build.py jpg https://YOUR-SITE.vercel.app`
    (use your real Vercel URL once you have it, otherwise run it once now and again after deploy).
 3. Or, in Google AI Studio: paste the code, ask it to "replace image paths with my local images", and download the result.
