@@ -7,6 +7,7 @@ Edit articles in content.py.
 import sys, re, html, json
 from content import POSTS, HOME
 from content_extra import EXTRA
+from content_inline import INLINE
 for _p in POSTS:
     _p['sections'] = _p['sections'] + EXTRA.get(_p['slug'], [])
 
@@ -58,10 +59,27 @@ def icon(name):
         rocket = f'<g transform="rotate(35 860 260)"><ellipse cx="860" cy="260" rx="55" ry="130" {W}/><polygon points="805,320 740,400 810,375" {W} opacity=".8"/><polygon points="915,320 980,400 910,375" {W} opacity=".8"/><circle cx="860" cy="225" r="26" fill="#7c5cff" opacity=".6"/><polygon points="835,385 885,385 860,470" {W} opacity=".55"/></g>'
         arrow = f'<line x1="520" y1="470" x2="520" y2="330" {S} stroke-width="22"/><polyline points="465,370 520,315 575,370" {S} stroke-width="22"/>'
         return cloud + arrow + rocket
+    if name == "nodes":
+        pts = [(600,340),(330,200),(870,200),(300,480),(900,490),(600,560)]
+        ln = "".join(f'<line x1="600" y1="340" x2="{x}" y2="{y}" {S} stroke-width="8" opacity=".55"/>' for x, y in pts[1:])
+        dots = "".join(f'<circle cx="{x}" cy="{y}" r="{r}" {W} opacity="{o}"/>' for (x, y), r, o in zip(pts, (70, 45, 45, 40, 50, 38), (.6, .4, .4, .35, .4, .35)))
+        return ln + dots
+    if name == "bulb":
+        rays = "".join(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" {S} stroke-width="14" opacity=".6"/>' for x1, y1, x2, y2 in [(600,70,600,120),(400,130,435,165),(800,130,765,165),(310,290,360,290),(890,290,840,290)])
+        return rays + f'<circle cx="600" cy="300" r="140" {W} opacity=".3"/><circle cx="600" cy="300" r="95" {W} opacity=".25"/><rect x="535" y="430" width="130" height="34" rx="14" {W} opacity=".6"/><rect x="550" y="478" width="100" height="30" rx="14" {W} opacity=".5"/><rect x="565" y="520" width="70" height="26" rx="13" {W} opacity=".45"/>'
+    if name == "calendar":
+        cells = "".join(f'<rect x="{370 + c * 110}" y="{290 + r * 90}" width="80" height="62" rx="14" {W} opacity="{0.7 if (r, c) in ((0, 2), (1, 4), (2, 1)) else 0.25}"/>' for r in range(3) for c in range(5))
+        return f'<rect x="310" y="120" width="580" height="450" rx="36" {W} opacity=".2"/><rect x="310" y="120" width="580" height="110" rx="36" {W} opacity=".35"/><rect x="400" y="80" width="26" height="80" rx="13" {W}/><rect x="780" y="80" width="26" height="80" rx="13" {W}/>' + cells
+    if name == "phone":
+        return f'<rect x="460" y="70" width="280" height="540" rx="50" {W} opacity=".28"/><rect x="490" y="120" width="220" height="410" rx="28" {W} opacity=".2"/><rect x="515" y="150" width="170" height="90" rx="16" {W} opacity=".5"/><rect x="515" y="262" width="170" height="18" rx="9" {W} opacity=".5"/><rect x="515" y="302" width="130" height="18" rx="9" {W} opacity=".35"/><rect x="515" y="342" width="150" height="18" rx="9" {W} opacity=".35"/><rect x="515" y="400" width="170" height="90" rx="16" {W} opacity=".4"/><rect x="555" y="565" width="90" height="12" rx="6" {W} opacity=".7"/>'
     return ""
 
 def svg_for(i, p):
+    return svg_make(i, p["icon"], p["alt"])
+
+def svg_make(i, icon_name, alt):
     a, b = PALETTE[i % len(PALETTE)]
+    p = {"alt": alt, "icon": icon_name}
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="{E(p["alt"])}"><title>{E(p["alt"])}</title>'
             f'<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="{a}"/><stop offset="1" stop-color="{b}"/></linearGradient></defs>'
             f'<rect width="1200" height="675" fill="url(#g)"/><circle cx="1080" cy="90" r="210" fill="#fff" opacity=".1"/><circle cx="90" cy="620" r="170" fill="#fff" opacity=".08"/>{icon(p["icon"])}</svg>')
@@ -131,7 +149,8 @@ for i, p in enumerate(POSTS):
     j = i
     nxt = [POSTS[(j + k) % len(POSTS)] for k in (1, 2, 3)]
     body_html, pairs, words = "", [], len(p["intro"].split())
-    for q, paras in p["sections"]:
+    inl = {x[0]: x for x in INLINE.get(p["slug"], [])}
+    for si, (q, paras) in enumerate(p["sections"]):
         body_html += f"<h2>{E(q)}</h2>"
         ans = ""
         for para in paras:
@@ -143,6 +162,11 @@ for i, p in enumerate(POSTS):
                 words += len(plain(para).split())
                 ans = ans or plain(para)
         pairs.append((q, ans))
+        if si in inl:
+            _, ic, fn, al = inl[si]
+            if EXT == "svg":
+                open(f"{fn}.svg", "w").write(svg_make(i + si + 2, ic, al))
+            body_html += f'<img src="/{fn}.{EXT}" width="1200" height="675" alt="{E(al)}" loading="lazy">'
     more = "".join(f'<li><a href="/{q["slug"]}.html">{E(q["title"])}</a></li>' for q in nxt)
     body = (f'<main><article><p class="meta"><a href="/">Home</a> / {E(p["title"])}</p><h1>{E(p["title"])}</h1>'
             f'<img src="/{img_file(p)}" width="1200" height="675" alt="{E(p["alt"])}">'
