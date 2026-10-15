@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://seo-blog-nine.vercel.app/sitemap.xml
