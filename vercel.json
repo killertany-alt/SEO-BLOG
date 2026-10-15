@@ -1,0 +1,65 @@
+{
+  "redirects": [
+    {
+      "source": "/what-is-seo-beginners-guide.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/keyword-research-for-beginners.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/on-page-seo-checklist.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/how-ai-is-changing-digital-marketing.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/best-free-ai-tools-for-content-creators.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/how-to-write-blog-posts-that-rank.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/social-media-marketing-basics.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/google-search-console-guide.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/website-speed-and-core-web-vitals.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/build-and-host-a-free-website-with-vercel.html",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*).(jpg|woff2)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
+    }
+  ]
+}
