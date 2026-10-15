@@ -16,9 +16,9 @@ EXT = sys.argv[2] if len(sys.argv) > 2 else "svg"
 NAME = "AI Marketing Playbook"
 E = html.escape
 
-PALETTE = [("#7c5cff", "#00d4ff"), ("#ff5c8a", "#ffb35c"), ("#00e0a4", "#2f7bff"), ("#ffd35c", "#ff5c5c"), ("#5cf0ff", "#7c5cff")]
-W = 'fill="#fff"'
-S = 'stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round"'
+PALETTE = [("#141118", "#3b2a17"), ("#0f1519", "#1f3a3d"), ("#1a1216", "#4a2530"), ("#12141c", "#2b3150"), ("#17140e", "#4d3d1c")]
+W = 'fill="#ecd8a8"'
+S = 'stroke="#ecd8a8" fill="none" stroke-linecap="round" stroke-linejoin="round"'
 
 def icon(name):
     if name == "search":
@@ -33,7 +33,7 @@ def icon(name):
     if name == "chip":
         pins = "".join(f'<line x1="{x}" y1="{y1}" x2="{x}" y2="{y2}" {S} stroke-width="14" opacity=".7"/>' for x in (520, 600, 680) for y1, y2 in ((215, 245), (430, 460)))
         pins += "".join(f'<line x1="{x1}" y1="{y}" x2="{x2}" y2="{y}" {S} stroke-width="14" opacity=".7"/>' for y in (295, 340, 385) for x1, x2 in ((440, 470), (730, 760)))
-        nodes = '<circle cx="250" cy="200" r="22" fill="#fff" opacity=".5"/><circle cx="950" cy="500" r="26" fill="#fff" opacity=".5"/><circle cx="930" cy="180" r="18" fill="#fff" opacity=".4"/><circle cx="270" cy="500" r="18" fill="#fff" opacity=".4"/>'
+        nodes = '<circle cx="250" cy="200" r="22" fill="#ecd8a8" opacity=".5"/><circle cx="950" cy="500" r="26" fill="#ecd8a8" opacity=".5"/><circle cx="930" cy="180" r="18" fill="#ecd8a8" opacity=".4"/><circle cx="270" cy="500" r="18" fill="#ecd8a8" opacity=".4"/>'
         links = f'<polyline points="250,200 440,295" {S} stroke-width="5" opacity=".5"/><polyline points="760,385 950,500" {S} stroke-width="5" opacity=".5"/><polyline points="730,295 930,180" {S} stroke-width="5" opacity=".5"/><polyline points="470,385 270,500" {S} stroke-width="5" opacity=".5"/>'
         return links + nodes + pins + f'<rect x="470" y="245" width="260" height="185" rx="32" {W} opacity=".28"/><circle cx="600" cy="338" r="48" {S} stroke-width="12"/><circle cx="600" cy="338" r="14" {W}/>'
     if name == "grid":
@@ -47,7 +47,7 @@ def icon(name):
         lines = "".join(f'<rect x="{x}" y="{y}" width="{w}" height="20" rx="10" {W} opacity=".45"/>' for x, y, w in [(330, 250, 400), (330, 310, 360), (330, 370, 380), (330, 430, 250)])
         return f'<rect x="290" y="110" width="520" height="460" rx="30" {W} opacity=".2"/><rect x="330" y="150" width="280" height="40" rx="20" {W} opacity=".6"/>' + lines + f'<g transform="rotate(40 850 330)"><rect x="830" y="190" width="42" height="260" rx="10" {W}/><polygon points="830,450 872,450 851,505" {W} opacity=".8"/><rect x="830" y="190" width="42" height="40" rx="10" {W} opacity=".6"/></g>'
     if name == "bubbles":
-        heart = '<path d="M600 440 C540 395 520 355 545 325 C570 295 600 310 600 335 C600 310 630 295 655 325 C680 355 660 395 600 440 Z" fill="#fff" opacity=".9"/>'
+        heart = '<path d="M600 440 C540 395 520 355 545 325 C570 295 600 310 600 335 C600 310 630 295 655 325 C680 355 660 395 600 440 Z" fill="#ecd8a8" opacity=".9"/>'
         return f'<rect x="240" y="150" width="400" height="250" rx="44" {W} opacity=".25"/><polygon points="300,400 290,470 370,400" {W} opacity=".25"/><rect x="520" y="260" width="440" height="280" rx="48" {W} opacity=".3"/><polygon points="880,540 920,610 840,540" {W} opacity=".3"/>' + f'<g transform="translate(0,-5)">{heart}</g><rect x="290" y="210" width="260" height="22" rx="11" {W} opacity=".6"/><rect x="290" y="260" width="200" height="22" rx="11" {W} opacity=".4"/>'
     if name == "chart":
         bars = "".join(f'<rect x="{x}" y="{560 - h}" width="90" height="{h}" rx="14" {W} opacity="{o}"/>' for x, h, o in [(260, 150, .3), (400, 210, .35), (540, 290, .4), (680, 340, .45), (820, 420, .55)])
@@ -82,34 +82,84 @@ def svg_make(i, icon_name, alt):
     p = {"alt": alt, "icon": icon_name}
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="{E(p["alt"])}"><title>{E(p["alt"])}</title>'
             f'<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="{a}"/><stop offset="1" stop-color="{b}"/></linearGradient></defs>'
-            f'<rect width="1200" height="675" fill="url(#g)"/><circle cx="1080" cy="90" r="210" fill="#fff" opacity=".1"/><circle cx="90" cy="620" r="170" fill="#fff" opacity=".08"/>{icon(p["icon"])}</svg>')
+            f'<rect width="1200" height="675" fill="url(#g)"/><circle cx="1080" cy="90" r="210" fill="#d4b06a" opacity=".08"/><circle cx="90" cy="620" r="170" fill="#d4b06a" opacity=".06"/>{icon(p["icon"])}</svg>')
 
-CSS = """:root{--bg:#0b0b12;--card:#14141f;--text:#e8e8f0;--mute:#a3a3b8;--acc:#8f78ff;--line:#23233a}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.75;font-size:17px}
-a{color:var(--acc);text-decoration:underline;text-underline-offset:3px}a:hover{color:#b6a7ff}
-header,footer{max-width:1100px;margin:auto;padding:24px 20px}
-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-header a.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:var(--text);text-decoration:none}
-nav a{margin-left:18px;font-size:.95rem}
-main{max-width:1100px;margin:auto;padding:0 20px 50px}
-h1,h2,h3{font-family:'Syne',sans-serif;line-height:1.2}
-.hero h1{font-size:clamp(2rem,5vw,3.2rem);margin:20px 0 10px}.hero p{color:var(--mute);max-width:760px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;margin:30px 0}
-.card{background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--line);transition:.2s}
-.card:hover{transform:translateY(-4px);border-color:var(--acc)}
-.card img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;display:block}
-.card div{padding:16px 18px 20px}.card h3{font-size:1.1rem;margin:0 0 8px}.card h3 a{color:var(--text);text-decoration:none}
-.card p{color:var(--mute);font-size:.92rem;margin:0;line-height:1.6}
-article{max-width:760px;margin:auto}article h1{font-size:clamp(1.8rem,4vw,2.6rem);margin:10px 0}
-article h2{font-size:1.45rem;margin:2.2em 0 .5em}
-article img{width:100%;height:auto;border-radius:16px;margin:16px 0}
-article p{margin:0 0 1.1em}article ul{padding-left:1.2em}article li{margin:.5em 0}
-.lead{font-size:1.15rem;color:#f1f1f8}
-.meta{color:var(--mute);font-size:.9rem}.more{margin-top:46px;border-top:1px solid var(--line);padding-top:10px}.more li{margin:6px 0}
-footer{color:var(--mute);font-size:.9rem;border-top:1px solid var(--line)}footer a{margin-right:14px;white-space:nowrap}
-footer p{margin:.6em 0}"""
+CSS = """:root{--ink:#0d0c0f;--panel:#15131a;--rule:#2b2731;--bone:#efe9de;--mute:#a8a29a;--gold:#d4b06a;--gold-soft:#ecd8a8}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--bone);font:400 18px/1.75 'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--gold);text-underline-offset:4px;text-decoration-thickness:1px}
+a:hover{color:var(--gold-soft)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
+img{max-width:100%}
+h1,h2,h3{font-family:'Instrument Serif',Georgia,serif;font-weight:400;margin:0}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
+.progress{position:fixed;top:0;left:0;width:100%;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;z-index:50}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:12px 28px;flex-wrap:wrap;padding-top:28px;padding-bottom:28px}
+.brand{font-family:'Instrument Serif',Georgia,serif;font-size:1.9rem;line-height:1;color:var(--bone);text-decoration:none;letter-spacing:-.01em}
+.top nav a{color:var(--mute);text-decoration:none;margin-right:26px;font-size:.95rem}
+.top nav a:last-child{margin-right:0}
+.top nav a:hover{color:var(--bone)}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.hero{padding:clamp(24px,5vw,72px) 0 clamp(24px,4vw,56px)}
+.hero h1{font-size:clamp(3.3rem,9.5vw,8.4rem);line-height:.92;letter-spacing:-.025em;max-width:11ch;animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+.cover{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);margin-top:clamp(32px,5vw,64px);align-items:end}
+.cover-img{display:block;overflow:hidden;border-radius:6px}
+.cover-img img{width:100%;height:auto;display:block;border-radius:6px}
+.lead{font-size:1.2rem;line-height:1.65;color:var(--bone);margin:0 0 1.2em}
+.note{color:var(--mute);font-size:.98rem;margin:0}
+.section-title{font-size:clamp(2rem,4vw,3rem);line-height:1.05;letter-spacing:-.01em;max-width:22ch;margin:clamp(40px,6vw,88px) 0 28px}
+.guides{border-bottom:1px solid var(--rule)}
+.guide{position:relative;display:grid;grid-template-columns:240px minmax(0,1fr) auto;gap:8px 36px;align-items:center;padding:28px 0;border-top:1px solid var(--rule)}
+.guide-img{display:block;overflow:hidden;border-radius:4px}
+.guide-img img{width:100%;height:auto;display:block;transition:transform .5s ease}
+.guide:hover .guide-img img{transform:scale(1.04)}
+.guide h3{font-size:clamp(1.6rem,2.6vw,2.15rem);line-height:1.1;letter-spacing:-.01em}
+.guide h3 a{color:var(--bone);text-decoration:none}
+.guide h3 a::after{content:"";position:absolute;inset:0}
+.guide:hover h3 a{color:var(--gold)}
+.guide p{margin:.5em 0 0;color:var(--mute);font-size:.98rem;line-height:1.6;max-width:62ch}
+.guide .time{color:var(--mute);font-size:.9rem;white-space:nowrap}
+.faqs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:36px;margin:8px 0 0}
+.faqs h3{font-size:1.55rem;line-height:1.15;margin-bottom:.5em}
+.faqs p{color:var(--mute);margin:0;font-size:1rem;line-height:1.7}
+.art-head{padding:clamp(16px,3vw,40px) 0 28px;max-width:980px}
+.crumb{color:var(--mute);font-size:.9rem;margin:0 0 20px}
+.crumb a{color:var(--mute)}
+.art-head h1{font-size:clamp(2.6rem,6.2vw,5.2rem);line-height:.98;letter-spacing:-.02em;animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.meta{color:var(--mute);font-size:.95rem;margin:20px 0 0}
+.art-cover{display:block;width:100%;height:auto;border-radius:6px}
+.art{display:grid;grid-template-columns:230px minmax(0,680px);gap:clamp(32px,6vw,88px);margin-top:clamp(32px,5vw,64px);justify-content:center}
+.toc{position:sticky;top:28px;align-self:start;font-size:.93rem}
+.toc summary{cursor:pointer;color:var(--bone);font-family:'Instrument Serif',Georgia,serif;font-size:1.35rem;margin-bottom:12px}
+.toc ul{list-style:none;margin:0;padding:0;border-left:1px solid var(--rule)}
+.toc li{margin:0}
+.toc a{display:block;padding:5px 0 5px 16px;color:var(--mute);text-decoration:none;line-height:1.4}
+.toc a:hover{color:var(--gold)}
+.body .standfirst{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(1.5rem,2.4vw,1.9rem);line-height:1.35;color:var(--bone);margin:0 0 1.4em}
+.body h2{font-size:clamp(1.8rem,3vw,2.3rem);line-height:1.1;letter-spacing:-.01em;margin:2.1em 0 .55em;scroll-margin-top:24px}
+.body p{margin:0 0 1.15em;color:#ddd7cc}
+.body ul{padding-left:1.1em;margin:0 0 1.3em;color:#ddd7cc}
+.body li{margin:.55em 0;padding-left:.3em}
+.body li::marker{color:var(--gold)}
+.body figure{margin:2.4em 0}
+.body figure img{display:block;width:100%;height:auto;border-radius:6px}
+.more{margin-top:clamp(56px,8vw,112px)}
+.foot{margin-top:clamp(56px,8vw,112px);border-top:1px solid var(--rule);padding-top:40px;padding-bottom:48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:32px}
+.foot .brand{font-size:1.6rem}
+.foot p{color:var(--mute);font-size:.92rem;margin:.5em 0 0}
+.foot ul{list-style:none;margin:0;padding:0;columns:2;column-gap:32px;font-size:.95rem}
+.foot li{margin:0 0 .5em;break-inside:avoid}
+.foot a{color:var(--mute);text-decoration:none}
+.foot a:hover{color:var(--gold)}
+@media (min-width:1100px){.body figure{margin-left:-56px;margin-right:-56px}}
+@media (max-width:999px){.art{grid-template-columns:minmax(0,1fr)}.toc{position:static;border-bottom:1px solid var(--rule);padding-bottom:16px}.cover{grid-template-columns:minmax(0,1fr)}.faqs{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:720px){body{font-size:17px}.guide{grid-template-columns:minmax(0,1fr)}.guide .time{margin-top:6px}.foot{grid-template-columns:minmax(0,1fr)}.foot ul{columns:1}.top nav a{margin-right:18px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero h1,.art-head h1{animation:none}.guide-img img{transition:none}}"""
 
-FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">'
+FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">'
+
+SCRIPT = "<script>(function(){var b=document.querySelector('.progress');if(b){var f=function(){var h=document.documentElement,m=h.scrollHeight-h.clientHeight;b.style.transform='scaleX('+(m>0?h.scrollTop/m:0)+')'};addEventListener('scroll',f,{passive:true});f()}var t=document.querySelector('.toc');if(t&&matchMedia('(min-width:1000px)').matches)t.open=true})();</script>"
 
 def link(text):
     """Escape text and turn [[slug|anchor]] into internal links."""
@@ -121,23 +171,41 @@ def plain(text):
 
 def img_file(p): return f"{p['img']}.{EXT}"
 
-def page(title, desc, path, body, og_img, extra=""):
+def slugify(q): return re.sub(r"[^a-z0-9]+", "-", q.lower()).strip("-")[:60]
+
+def count_words(p):
+    n = len(p["intro"].split())
+    for q, paras in p["sections"]:
+        for para in paras:
+            n += sum(len(x.split()) for x in para[1]) if isinstance(para, tuple) else len(plain(para).split())
+    return n
+
+for _p in POSTS: _p["words"] = count_words(_p); _p["mins"] = max(1, round(_p["words"] / 200))
+
+def page(title, desc, path, body, og_img, extra="", progress=False):
     url = f"{SITE}/{path}"
+    foot_links = "".join(f'<li><a href="/{q["slug"]}.html">{E(q["title"])}</a></li>' for q in POSTS)
     return f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{E(title)}</title><meta name="description" content="{E(desc)}">
 <link rel="canonical" href="{url}">
+<meta name="theme-color" content="#0d0c0f">
 <meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(desc)}">
 <meta property="og:type" content="website"><meta property="og:url" content="{url}"><meta property="og:image" content="{SITE}/{og_img}">
 <meta name="twitter:card" content="summary_large_image">
 {FONTS}<link rel="stylesheet" href="/style.css">{extra}</head><body>
-<header><a class="logo" href="/">{NAME}</a><nav><a href="/">Home</a><a href="/what-is-seo-beginners-guide.html">SEO basics</a><a href="/google-search-console-guide.html">Search Console guide</a></nav></header>
+{'<div class="progress" aria-hidden="true"></div>' if progress else ''}
+<div class="wrap top"><a class="brand" href="/">{NAME}</a><nav aria-label="Main"><a href="/#guides">All guides</a><a href="/what-is-seo-beginners-guide.html">SEO basics</a><a href="/google-search-console-guide.html">Search Console guide</a></nav></div>
 {body}
-<footer><p><strong>All guides:</strong></p><p>{"".join(f'<a href="/{q["slug"]}.html">{E(q["title"].split(":")[0])}</a>' for q in POSTS)}</p><p>&copy; 2026 {NAME}. Built for an SEO learning project.</p></footer></body></html>"""
+<footer class="wrap foot"><div><a class="brand" href="/">{NAME}</a><p>Plain-language guides to SEO, AI tools and getting a website found.</p><p>&copy; 2026 {NAME}</p></div><ul>{foot_links}</ul></footer>{SCRIPT}</body></html>"""
 
 def faq_ld(pairs):
     return '<script type="application/ld+json">' + json.dumps({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
         {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in pairs]}) + "</script>"
+
+def guide_row(p, lazy=True):
+    return (f'<div class="guide"><a class="guide-img" href="/{p["slug"]}.html" tabindex="-1"><img src="/{img_file(p)}" width="1200" height="675" alt="{E(p["alt"])}"{" loading=lazy" if lazy else ""}></a>'
+            f'<div><h3><a href="/{p["slug"]}.html">{E(p["title"])}</a></h3><p>{E(p["desc"])}</p></div><span class="time">{p["mins"]} min read</span></div>')
 
 open("style.css", "w").write(CSS)
 stats = []
@@ -145,45 +213,45 @@ stats = []
 for i, p in enumerate(POSTS):
     if EXT == "svg":
         open(img_file(p), "w").write(svg_for(i, p))
-    related = [q for q in POSTS if q["slug"] != p["slug"]]
-    j = i
-    nxt = [POSTS[(j + k) % len(POSTS)] for k in (1, 2, 3)]
-    body_html, pairs, words = "", [], len(p["intro"].split())
+    nxt = [POSTS[(i + k) % len(POSTS)] for k in (1, 2, 3)]
+    body_html, pairs, toc = "", [], []
     inl = {x[0]: x for x in INLINE.get(p["slug"], [])}
     for si, (q, paras) in enumerate(p["sections"]):
-        body_html += f"<h2>{E(q)}</h2>"
+        hid = slugify(q)
+        toc.append((hid, q))
+        body_html += f'<h2 id="{hid}">{E(q)}</h2>'
         ans = ""
         for para in paras:
             if isinstance(para, tuple):
                 body_html += "<ul>" + "".join(f"<li>{link(x)}</li>" for x in para[1]) + "</ul>"
-                words += sum(len(x.split()) for x in para[1])
             else:
                 body_html += f"<p>{link(para)}</p>"
-                words += len(plain(para).split())
                 ans = ans or plain(para)
         pairs.append((q, ans))
         if si in inl:
             _, ic, fn, al = inl[si]
             if EXT == "svg":
                 open(f"{fn}.svg", "w").write(svg_make(i + si + 2, ic, al))
-            body_html += f'<img src="/{fn}.{EXT}" width="1200" height="675" alt="{E(al)}" loading="lazy">'
-    more = "".join(f'<li><a href="/{q["slug"]}.html">{E(q["title"])}</a></li>' for q in nxt)
-    body = (f'<main><article><p class="meta"><a href="/">Home</a> / {E(p["title"])}</p><h1>{E(p["title"])}</h1>'
-            f'<img src="/{img_file(p)}" width="1200" height="675" alt="{E(p["alt"])}">'
-            f'<p class="lead">{link(p["intro"])}</p>{body_html}'
-            f'<div class="more"><h2>What should you read next?</h2><ul>{more}</ul></div></article></main>')
+            body_html += f'<figure><img src="/{fn}.{EXT}" width="1200" height="675" alt="{E(al)}" loading="lazy"></figure>'
+    toc_html = "".join(f'<li><a href="#{h}">{E(q)}</a></li>' for h, q in toc)
+    body = (f'<main class="wrap"><div class="art-head"><p class="crumb"><a href="/">Home</a> / {E(p["title"])}</p><h1>{E(p["title"])}</h1><p class="meta">{p["mins"]} min read</p></div>'
+            f'<img class="art-cover" src="/{img_file(p)}" width="1200" height="675" alt="{E(p["alt"])}">'
+            f'<div class="art"><aside><details class="toc"><summary>In this guide</summary><ul>{toc_html}</ul></details></aside>'
+            f'<article class="body"><p class="standfirst">{link(p["intro"])}</p>{body_html}</article></div>'
+            f'<section class="more"><h2 class="section-title">What should you read next?</h2><div class="guides">{"".join(guide_row(q) for q in nxt)}</div></section></main>')
     ld = ('<script type="application/ld+json">' + json.dumps({"@context": "https://schema.org", "@type": "BlogPosting", "headline": p["title"],
           "description": p["desc"], "image": f"{SITE}/{img_file(p)}", "keywords": ", ".join([p["kw"]] + p["rel"]),
           "mainEntityOfPage": f"{SITE}/{p['slug']}.html", "author": {"@type": "Organization", "name": NAME}}) + "</script>") + faq_ld(pairs)
-    open(f"{p['slug']}.html", "w").write(page(p["title"], p["desc"], f"{p['slug']}.html", body, img_file(p), ld))
-    stats.append((p["slug"], len(p["title"]), len(p["desc"]), words))
+    open(f"{p['slug']}.html", "w").write(page(p["title"], p["desc"], f"{p['slug']}.html", body, img_file(p), ld, progress=True))
+    stats.append((p["slug"], len(p["title"]), len(p["desc"]), p["words"]))
 
-cards = "".join(
-    f'<div class="card"><a href="/{p["slug"]}.html"><img src="/{img_file(p)}" width="1200" height="675" alt="{E(p["alt"])}" loading="lazy"></a>'
-    f'<div><h3><a href="/{p["slug"]}.html">{E(p["title"])}</a></h3><p>{E(p["desc"])}</p></div></div>' for p in POSTS)
-faq_html = "".join(f"<h2>{E(q)}</h2><p>{link(a)}</p>" for q, a in HOME["faqs"])
-home = (f'<main><section class="hero"><h1>{E(HOME["h1"])}</h1><p>{E(HOME["intro"])}</p></section>'
-        f'<h2>What are the best digital marketing guides for beginners?</h2><div class="grid">{cards}</div><article>{faq_html}</article></main>')
+f0 = POSTS[0]
+faq_html = "".join(f"<div><h3>{E(q)}</h3><p>{link(a)}</p></div>" for q, a in HOME["faqs"])
+home = (f'<main class="wrap"><section class="hero"><h1>{E(HOME["h1"])}</h1>'
+        f'<div class="cover"><a class="cover-img" href="/{f0["slug"]}.html" tabindex="-1"><img src="/{img_file(f0)}" width="1200" height="675" alt="{E(f0["alt"])}"></a>'
+        f'<div><p class="lead">{E(HOME["intro"])}</p><p class="note">New to this? Read <a href="/{f0["slug"]}.html">{E(f0["title"])}</a> first.</p></div></div></section>'
+        f'<section id="guides"><h2 class="section-title">What are the best digital marketing guides for beginners?</h2><div class="guides">{"".join(guide_row(p) for p in POSTS)}</div></section>'
+        f'<section><h2 class="section-title">Common questions from new marketers</h2><div class="faqs">{faq_html}</div></section></main>')
 home_ld = '<script type="application/ld+json">' + json.dumps({"@context": "https://schema.org", "@type": "WebSite", "name": NAME, "url": SITE + "/"}) + "</script>" + faq_ld([(q, plain(a)) for q, a in HOME["faqs"]])
 open("index.html", "w").write(page(HOME["title"], HOME["desc"], "", home, img_file(POSTS[0]), home_ld))
 stats.append(("index", len(HOME["title"]), len(HOME["desc"]), len(HOME["intro"].split())))
